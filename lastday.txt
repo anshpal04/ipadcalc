@@ -1,5 +1,0 @@
-first thing is to push the day 2 before coding anything new
-
-    eread something about cors and fastapi about get and post methods
-
-before pushing check the branch or change it to main
