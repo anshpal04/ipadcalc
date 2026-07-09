@@ -7,7 +7,7 @@ from PIL import Image
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+model = genai.GenerativeModel(model_name="gemini-3.1-flash-lite")
 
 CALCULATOR_PROMPT = """
 You are an advanced mathematical reasoning engine. You will be given an image containing handwritten math equations, expressions, variables, graphs, or abstract concepts.
