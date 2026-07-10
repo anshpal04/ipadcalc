@@ -1,5 +1,6 @@
 import base64
-
+from database import Base, engine
+from auth_routes import router as auth_router
 import uvicorn
 from constants import PORT, SERVER_URL
 from fastapi import FastAPI, HTTPException
@@ -17,7 +18,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+Base.metadata.create_all(bind=engine)
+app.include_router(auth_router)
 class ImageData(BaseModel):
     image: str
     dict_of_vars: dict
