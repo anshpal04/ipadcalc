@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 
 const SWATCHES = ["#ffffff", "#ef4444", "#3b82f6", "#22c55e", "#f59e0b"];
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8900";
+
 interface GeneratedResponse {
   expression: string;
   result: string;
@@ -18,12 +20,16 @@ interface RenderedOutput {
   y: number;
 }
 
-export default function HomeScreen() {
+interface HomeScreenProps {
+  token?: string;
+}
+
+export default function HomeScreen({ token }: HomeScreenProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const [selectedColor, setSelectedColor] = useState<string>("#ffffff");
 
-  const [dictOfVars, setDictOfVars] = useState<Record<string, any>>({});
+  const [dictOfVars, setDictOfVars] = useState<Record<string, string>>({});
   const [outputs, setOutputs] = useState<RenderedOutput[]>([]);
 
   const strokeBounds = useRef<{
@@ -103,7 +109,7 @@ export default function HomeScreen() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
     const { x, y } = getCanvasCoords(e);
-    ctx.lineTo(x, e.clientY);y
+    ctx.lineTo(x, y);
     ctx.stroke();
 
     updateStrokeBounds(x, y);
@@ -141,9 +147,10 @@ export default function HomeScreen() {
         : window.innerHeight / 2;
 
     try {
-      const response = await axios.post("http://localhost:8900/calculate", {
+      const response = await axios.post(`${API_BASE_URL}/calculate`, {
         image: base64ImageData,
         dict_of_vars: dictOfVars,
+        token,
       });
 
       if (response.data && response.data.status === "success") {
@@ -199,7 +206,7 @@ export default function HomeScreen() {
           Reset
         </Button>
 
-        <Group spacing="sm">
+        <Group gap="sm">
           {SWATCHES.map((color) => (
             <ColorSwatch
               key={color}

@@ -1,6 +1,4 @@
 # used to validate incoming data using pydantic
-#
-from backend.database import Base
 from pydantic import BaseModel, EmailStr
 
 class UserCreate(BaseModel):

@@ -6,6 +6,7 @@ cffi==2.1.0
 charset-normalizer==3.4.9
 click==8.4.2
 cryptography==49.0.0
+email-validator==2.2.0
 fastapi==0.103.1
 google-ai-generativelanguage==0.6.15
 google-api-core==2.31.0
@@ -20,7 +21,6 @@ grpcio-status==1.71.2
 h11==0.16.0
 httplib2==0.32.0
 idna==3.18
-passlib==1.7.4
 pillow==12.3.0
 proto-plus==1.28.0
 protobuf==5.29.6
